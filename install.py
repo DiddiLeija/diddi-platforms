@@ -40,7 +40,7 @@ else:
 
 try:
     print("Copying the contents...")
-    shutil.copytree("./src", dest_path)
+    shutil.copytree("./diddiplatforms", dest_path)
 except Exception as exc:
     sys.exit(f"Error while installing: {type(exc).__name__}: {str(exc)}")
 
