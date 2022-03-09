@@ -24,3 +24,10 @@ def get_user_ubication():
         return os.path.expandvars("$HOME/.diddiplatforms")
     else:
         raise UnsupportedPlatform(f"Unsupported platform: {plat}")
+
+
+if __name__ == "__main__":
+    # when running this file directly, we try to find the current
+    # destination path, no matter if it doesn't exists. We only
+    # verify we can guess the path.
+    print(f"Currently, the destination path should be '{get_user_ubication()}'.")
