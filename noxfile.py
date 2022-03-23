@@ -2,6 +2,7 @@ import nox
 
 nox.options.sessions = ["format", "lint"]
 
+
 @nox.session
 def format(session):
     "Run formatters."
@@ -14,8 +15,9 @@ def format(session):
 def lint(session):
     "Run linters."
     session.install("-r", "requirements-test.txt")
-    session.run("black", "-c", ".")
+    session.run("black", "--check", ".")
     session.run("isort", "--check-only", ".")
+    session.run("flake8", ".")
 
 
 @nox.session(name="check-deps")
