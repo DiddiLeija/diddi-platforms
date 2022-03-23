@@ -6,12 +6,16 @@ nox.options.sessions = ["format", "lint"]
 def format(session):
     "Run formatters."
     session.install("-r", "requirements-test.txt")
+    session.run("black", ".")
+    session.run("isort", ".")
 
 
 @nox.session
 def lint(session):
     "Run linters."
     session.install("-r", "requirements-test.txt")
+    session.run("black", "-c", ".")
+    session.run("isort", "--check-only", ".")
 
 
 @nox.session(name="check-deps")
