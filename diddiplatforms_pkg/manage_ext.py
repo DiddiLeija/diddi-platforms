@@ -6,7 +6,7 @@ import os
 import shutil
 import zipfile
 
-from . import find_path, utils
+from . import utils
 
 
 class DiscouragedMethod(Warning):
@@ -18,7 +18,7 @@ class UnexpectedFilename(Warning):
 
 
 def install_extension(file, no_pyxapp=False):
-    dest = os.path.join(find_path.get_user_ubication(), "levels")
+    dest = os.path.join(utils.get_user_ubication(), "levels")
     if no_pyxapp:
         utils.warn(
             "Levels that are not packaged as Pyxel apps are discouraged, since they need Python strictly.",

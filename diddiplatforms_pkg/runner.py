@@ -3,7 +3,11 @@ The main brain of this package (and what
 really matters) is here.
 """
 
+import os
+
 import pyxel
+
+from . import utils
 
 
 class PyxelAppRunner:
@@ -25,6 +29,9 @@ class PyxelAppRunner:
             raise ValueError(
                 f"Expected 'app_type' to be one of ('pyxapp', 'py'), got '{app_type}'"
             )
+
+        self.levels_path = os.path.join(utils.get_user_ubication(), "levels")
+
         self.pyxel_init(init_width, init_height, title)
 
     def pyxel_init(self, w, h, t):
