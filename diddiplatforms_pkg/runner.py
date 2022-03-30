@@ -3,7 +3,9 @@ The main brain of this package (and what
 really matters) is here.
 """
 
+import json
 import os
+import runpy
 
 import pyxel
 
@@ -21,20 +23,55 @@ class PyxelAppRunner:
         init_height=100,
         **kwargs,
     ):
-        if app_type == "pyxapp" and "pyxapp_file" not in kwargs:
-            raise ValueError("Keyword argument 'pyxapp_file' not found")
-        elif app_type == "py" and "json_config" not in kwargs:
-            raise ValueError("Keyword argument 'json_config' not found")
-        elif app_type not in ("pyxapp", "py"):
-            raise ValueError(
-                f"Expected 'app_type' to be one of ('pyxapp', 'py'), got '{app_type}'"
-            )
-
+        self.app_type = app_type
         self.levels_path = os.path.join(utils.get_user_ubication(), "levels")
 
-        self.pyxel_init(init_width, init_height, title)
+        os.chdir(self.levels_path)
+
+        if self.app_type == "pyxapp":
+            if "pyxapp_file" not in kwargs:
+                raise ValueError("Keyword argument 'pyxapp_file' not found")
+            self.run_pyxapp(kwargs["pyxapp_file"])
+        elif self.app_type == "py":
+            if "json_config" not in kwargs:
+                raise ValueError("Keyword argument 'json_config' not found")
+            elif "py_file" not in kwargs:
+                raise ValueError("Keyword argument 'py_file' not found")
+            try:
+                if kwargs["no_pyxel_init"] is False:
+                    self.pyxel_init(init_width, init_height, title)
+            except KeyError:
+                pass
+            self.run_py(kwargs["py_file"], kwargs["json_config"])
+        elif self.app_type not in ("pyxapp", "py"):
+            raise ValueError(
+                f"Expected 'app_type' to be one of ('pyxapp', 'py'), got '{self.app_type}'"
+            )
 
     def pyxel_init(self, w, h, t):
         # NOTE: We set capture_sec to 30
         # to enable video screenshots :)
         pyxel.init(w, h, t, capture_sec=30)
+
+    def run_pyxapp(self, file):
+        """
+        Run a pyxapp, given the file name.
+        This file appends the levels' location
+        to find the true path.
+        """
+        # WARNING: We are using an internal function
+        # of Pyxel to run the pyxapps. The Pyxel version
+        # **should** keep pinned for safety reasons.
+        pyxel.cli._play_pyxel_app(file)
+
+    def run_py(self, file, configfile):
+        """
+        Given the Python file and the config
+        file, run the app.
+        """
+        with open(configfile, "r") as f:
+            configs = json.loads(f.read())
+        if "pyxapp" in configs:
+            self.run_pyxapp(configs["pyxapp"])
+            return None
+        runpy.run_path(file)
