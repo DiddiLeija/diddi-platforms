@@ -1,5 +1,5 @@
 """
-Misc utils that are used by this package.
+Misc utils that are used by DiddiPlatforms internally.
 """
 
 import os
@@ -28,7 +28,7 @@ def get_user_ubication():
             )
         return os.path.expandvars("$HOME/.diddiplatforms")
     else:
-        raise UnsupportedPlatform(f"Unsupported platform: {plat}")
+        raise UnsupportedPlatform(repr(plat))
 
 
 def warn(msg, warning_type=UserWarning):

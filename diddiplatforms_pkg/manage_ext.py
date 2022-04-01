@@ -4,39 +4,21 @@ Find and manage the extensions.
 
 import os
 import shutil
-import zipfile
 
 from . import utils
-
-
-class DiscouragedMethod(Warning):
-    pass
-
-
-class UnexpectedFilename(Warning):
-    pass
 
 
 def install_extension(file, no_pyxapp=False):
     dest = os.path.join(utils.get_user_ubication(), "levels")
     if no_pyxapp:
-        utils.warn(
-            "Levels that are not packaged as Pyxel apps are discouraged, since they need Python strictly.",
-            DiscouragedMethod,
-        )
-        if not file.endswith(".zip"):
-            utils.warn(
-                f"Expected zip files, but the file name ('{file}') does not look like one.",
-                UnexpectedFilename,
+        if not file.endswith(".py"):
+            raise ValueError(
+                f"Expected a single Python file, but the given file ('{file}') does not look like one."
             )
-        dest_file = zipfile.ZipFile(file)
-        # A Zip needs to be unpacked, so we
-        # use the provided method directly
-        dest_file.extractall(dest)
+        shutil.copy2(file, os.path.join(dest, file[len(os.path.dirname(file)) :]))
     else:
         if not file.endswith(".pyxapp"):
-            utils.warn(
-                f"Expected a Pyxel packaged app, but the file name ('{file}') does not look like one.",
-                UnexpectedFilename,
+            raise ValueError(
+                f"Expected a Pyxel packaged app, but the file name ('{file}') does not look like one."
             )
         shutil.copy2(file, os.path.join(dest, file[len(os.path.dirname(file)) :]))

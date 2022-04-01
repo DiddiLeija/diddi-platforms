@@ -3,7 +3,6 @@ The main brain of this package (and what
 really matters) is here.
 """
 
-import json
 import os
 import runpy
 
@@ -33,16 +32,14 @@ class PyxelAppRunner:
                 raise ValueError("Keyword argument 'pyxapp_file' not found")
             self.run_pyxapp(kwargs["pyxapp_file"])
         elif self.app_type == "py":
-            if "json_config" not in kwargs:
-                raise ValueError("Keyword argument 'json_config' not found")
-            elif "py_file" not in kwargs:
+            if "py_file" not in kwargs:
                 raise ValueError("Keyword argument 'py_file' not found")
             try:
                 if kwargs["no_pyxel_init"] is False:
                     self.pyxel_init(init_width, init_height, title)
             except KeyError:
                 pass
-            self.run_py(kwargs["py_file"], kwargs["json_config"])
+            self.run_py(kwargs["py_file"])
         elif self.app_type not in ("pyxapp", "py"):
             raise ValueError(
                 f"Expected 'app_type' to be one of ('pyxapp', 'py'), got '{self.app_type}'"
@@ -55,23 +52,17 @@ class PyxelAppRunner:
 
     def run_pyxapp(self, file):
         """
-        Run a pyxapp, given the file name.
-        This file appends the levels' location
-        to find the true path.
+        Run a pyxapp, given the file name,
+        using part of the Pyxel's strategy for
+        running these packaged apps.
         """
         # WARNING: We are using an internal function
         # of Pyxel to run the pyxapps. The Pyxel version
         # **should** keep pinned for safety reasons.
-        pyxel.cli._play_pyxel_app(file)
+        pyxel.cli._play_pyxel_app(file + ".pyxapp")
 
     def run_py(self, file, configfile):
         """
-        Given the Python file and the config
-        file, run the app.
+        Given the Python file, run the app.
         """
-        with open(configfile, "r") as f:
-            configs = json.loads(f.read())
-        if "pyxapp" in configs:
-            self.run_pyxapp(configs["pyxapp"])
-            return None
-        runpy.run_path(file)
+        runpy.run_path(file + ".py")
