@@ -20,8 +20,9 @@ class Object(ABC):
     x = 0
     y = 0
 
-    def __init__(self):
-        pass
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
 
     @property
     @abstractmethod
@@ -38,6 +39,19 @@ class Object(ABC):
         fitting in anyone of the above classifications.
         """
         return -1
+
+    @property
+    @abstractmethod
+    def is_solid(self):
+        """
+        Return True if the block is 100% solid (e.g.
+        blocks) or True if it could overlap and interact
+        with other elements.
+
+        This base class gives None, but that's not
+        officially 'allowed'.
+        """
+        return None
 
     @abstractmethod
     def get_aspect_ubication(self):
@@ -66,3 +80,27 @@ class Object(ABC):
         """
         aspect, size = self.get_aspect_ubication()
         pyxel.blt(self.x, self.y, aspect[2], aspect[0], aspect[1], size, size)
+
+
+class BaseBlock(Object):
+    """
+    A basic 'block' object. All those objects
+    considered as 'blocks' should be instances
+    of this object.
+    """
+
+    @property
+    def role(self):
+        return 1
+
+    @property
+    def is_solid(self):
+        return True
+
+    def draw(self):
+        """
+        Actually, blocks doesn't need to be drawn
+        in most of the cases. They're already on the
+        tilemap!
+        """
+        pass
