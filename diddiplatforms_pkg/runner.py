@@ -11,7 +11,7 @@ import pyxel
 from . import utils
 
 
-class PyxelAppRunner:
+class AppRunner:
     """
     The class to run the Diddi Platforms app.
     It is a basic Pyxel app, that works as the
@@ -21,7 +21,7 @@ class PyxelAppRunner:
 
     def __init__(self):
         self.reset_values()
-        pyxel.init(200, 200, "Diddi Platforms -- Welcome")
+        pyxel.init(100, 100, "Diddi Platforms -- Welcome")
         pyxel.run(self.update, self.draw)
 
     def reset_values(self):
@@ -32,7 +32,10 @@ class PyxelAppRunner:
         pass
 
     def draw(self):
-        pass
+        pyxel.cls(0)
+        pyxel.rect(0, 0, 100, 7, 5)
+        pyxel.text(1, 0, "Diddi Platforms", 1)
+        pyxel.text(0, 0, "Diddi Platforms", 7)
 
     def run_file(
         self,
