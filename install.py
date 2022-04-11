@@ -10,29 +10,11 @@ if sys.version_info < (3, 7):
     sys.exit(f"Unsupported Python: {sys.version}")
 
 import os
-import platform
-import shutil
 
 try:
     from diddiplatforms_pkg.find_path import get_user_ubication
 except ImportError:
-
-    def get_user_ubication():
-        plat = platform.system()
-        if plat == "Windows":
-            if "USERPROFILE" not in os.environ:
-                sys.exit(
-                    "Could not get the USERPROFILE variable, so we couldn't find a place to install."
-                )
-            return os.path.expandvars("%USERPROFILE%/.diddiplatforms")
-        elif plat == ("Darwin", "Linux"):
-            if "HOME" not in os.environ:
-                sys.exit(
-                    "Could not get the HOME variable, so we couldn't find a place to install."
-                )
-            return os.path.expandvars("$HOME/.diddiplatforms")
-        else:
-            sys.exit(f"Unsupported platform: {plat}")
+    sys.exit("Please get the 'diddiplatforms_pkg' package to continue")
 
 
 print("Looking for the destination path...")
@@ -51,7 +33,7 @@ else:
 
 try:
     print("Copying the contents...")
-    shutil.copytree("./diddiplatforms", dest_path)
+    os.makedirs(os.path.join(dest_path, "levels"), exist_ok=True)
 except Exception as exc:
     sys.exit(f"Error while installing: {type(exc).__name__}: {str(exc)}")
 
