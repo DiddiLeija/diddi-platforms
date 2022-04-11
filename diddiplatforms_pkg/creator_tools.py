@@ -100,7 +100,41 @@ class BaseBlock(Object):
     def draw(self):
         """
         Actually, blocks doesn't need to be drawn
-        in most of the cases. They're already on the
-        tilemap!
+        (in most of the cases), since they're already
+        on the tilemap!
         """
         pass
+
+
+class Dirt(BaseBlock):
+    """
+    Dirt is a basic block, with no available interactions
+    with the users, it is totally solid.
+    """
+
+    def get_aspect_ubication(self):
+        return ((24, 24), 8)
+
+    def update(self):
+        pass
+
+
+class Grass1(Dirt):
+    "Light grass."
+
+    def get_aspect_ubication(self):
+        return ((24, 16), 8)
+
+
+class Grass2(Dirt):
+    "Thick grass."
+
+    def get_aspect_ubication(self):
+        return ((16, 16), 8)
+
+
+class Stone(BaseBlock):
+    "Stone. Again, no interactions are allowed."
+
+    def get_aspect_ubication(self):
+        return ((16, 24), 8)
