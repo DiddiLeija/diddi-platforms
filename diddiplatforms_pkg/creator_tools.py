@@ -45,7 +45,7 @@ class Object(ABC):
     def is_solid(self):
         """
         Return True if the block is 100% solid (e.g.
-        blocks) or True if it could overlap and interact
+        blocks) or False if it could overlap and interact
         with other elements.
 
         This base class gives None, but that's not
@@ -80,6 +80,72 @@ class Object(ABC):
         """
         aspect, size = self.get_aspect_ubication()
         pyxel.blt(self.x, self.y, aspect[2], aspect[0], aspect[1], size, size)
+
+
+class Diddi(Object):
+    """
+    The main object behind a character. In most of the
+    cases, Diddi is the main character of the game and
+    doesn't need to be replaced (in most of the cases).
+    """
+
+    def __init__(self, x=None, y=None):
+        """
+        We ignored 'x' and 'y', though they
+        can be passed like any other object.
+        Anyway, we are starting from (0, 0).
+
+        ---
+
+        We also define a 'self.state'. It is
+        a tuple that describes the state of the
+        character. The first value can mean:
+
+        - 0: Right
+        - 1: Left
+
+        And the second value could mean:
+
+        - 0: In the air
+        - 1: Not in the air
+
+        The initial value of 'state' is (0, 0),
+        which means "right oriented, in the air",
+        and is what we need when starting.
+
+        ---
+
+        Finally, 'shooting' is a boolean that tells
+        if the player is sending a bullet or not.
+        """
+        self.x, self.y = 0, 0
+        self.state = (0, 0)
+        self.shooting = False
+
+    @property
+    def role(self):
+        return 0
+
+    @property
+    def is_solid(self):
+        return False
+
+    @abstractmethod
+    def get_aspect_ubication(self):
+        """
+        To identify which aspect we'll
+        use, we need to compare some
+        "state values" first.
+        """
+        orientation, not_flying = self.state
+        if orientation == 0:
+            # Right oriented
+            if not_flying:
+                pass
+        else:
+            # Left oriented
+            if not_flying:
+                pass
 
 
 class BaseBlock(Object):
