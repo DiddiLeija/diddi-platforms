@@ -3,6 +3,7 @@ This submodule is the toolkit for those
 who create Diddi Platforms levels.
 """
 
+import random
 from abc import ABC, abstractmethod
 
 import pyxel
@@ -58,8 +59,8 @@ class Object(ABC):
         """
         This method is the way to find where to find
         the object's sprite in the Pyxel resource,
-        and the size. That's returned in a (coords, size)
-        tuple. Also, 'coords' should be a (x, y, r) tuple,
+        and the size. That's returned in a (img, coords, size)
+        tuple. There, 'coords' should be a (x, y, r) tuple,
         where 'x' and 'y' are the coordinates, and 'r' is
         the resource number (as far as Pyxel has stated, 0-2).
         And 'size' is the size in pixels (usually, it's 8).
@@ -104,7 +105,7 @@ class Diddi(Object):
         - 0: Right
         - 1: Left
 
-        And the second value could mean:
+        And the second value can mean:
 
         - 0: In the air
         - 1: Not in the air
@@ -140,12 +141,48 @@ class Diddi(Object):
         orientation, not_flying = self.state
         if orientation == 0:
             # Right oriented
+            x, y = 32, 0
             if not_flying:
-                pass
+                # Select one of the "walking"
+                # aspects defined for right orientation
+                x, y = random.choice([(16, 0), (24, 0)])
+                if self.shooting:
+                    x, y = 16, 16
         else:
             # Left oriented
+            x, y = 32, 8
             if not_flying:
-                pass
+                # Select one of the "walking"
+                # aspects defined for left orientation
+                x, y = random.choice([(16, 8), (24, 8)])
+            if self.shooting:
+                x, y = 24, 16
+        return (
+            (
+                x,
+                y,
+                0,
+            ),
+            8,
+        )
+
+    def update(self):
+        "The update method."
+        self.horizontal_move()
+        self.check_shooting()
+
+    def horizontal_move(self):
+        "Move in the 'x' axis"
+        if pyxel.btn(pyxel.KEY_RIGHT) or pyxel.btn(pyxel.KEY_D):
+            self.x = min(self.x + 2, 10)
+        elif pyxel.btn(pyxel.KEY_LEFT) or pyxel.btn(pyxel.KEY_A):
+            self.x = max(self.x - 2, 10)
+
+    def check_shooting(self):
+        "The shooting startegy."
+        if pyxel.btnp(pyxel.KEY_SPACE):
+            # Time to shoot
+            pass
 
 
 class BaseBlock(Object):
