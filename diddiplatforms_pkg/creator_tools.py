@@ -175,14 +175,18 @@ class Diddi(Object):
         "Move in the 'x' axis"
         if pyxel.btn(pyxel.KEY_RIGHT) or pyxel.btn(pyxel.KEY_D):
             self.x = min(self.x + 2, 10)
+            self.state = (0, self.state[1])
         elif pyxel.btn(pyxel.KEY_LEFT) or pyxel.btn(pyxel.KEY_A):
             self.x = max(self.x - 2, 10)
+            self.state = (1, self.state[1])
 
     def check_shooting(self):
         "The shooting startegy."
         if pyxel.btnp(pyxel.KEY_SPACE):
             # Time to shoot
-            pass
+            self.shooting = True
+        elif self.shooting:
+            self.shooting = False
 
 
 class BaseBlock(Object):
