@@ -1,0 +1,2 @@
+pyxel==1.6.9
+diddiplatforms_pkg==1.0.0
