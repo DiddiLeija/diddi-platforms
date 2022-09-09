@@ -1,2 +1,2 @@
-pyxel==1.7.2
+pyxel==1.8.2
 diddiplatforms_pkg==1.0.0
