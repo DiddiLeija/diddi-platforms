@@ -1,1 +1,2 @@
 include *.pyxres
+include *.pyxapp
