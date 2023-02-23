@@ -1,6 +1,5 @@
 """
-This 'main file' is the one that should be
-distributed as the main game. It only wraps
-a few operations with the 'diddiplatforms_pkg'
-package, but nothing else is involved.
+This is the main file, and can also be
+considered an example of how to invoke
+and run Diddi Platforms by your own.
 """
