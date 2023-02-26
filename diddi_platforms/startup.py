@@ -19,5 +19,5 @@ def load_pyxres():
         raise ResourceNotFound(f"File '{variables.RESOURCE_FILE}' does not exist.")
 
 
-def initialize():
-    "The primary function that runs everything!"
+class App:
+    "The primary class that runs everything!"
