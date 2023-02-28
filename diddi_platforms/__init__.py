@@ -6,4 +6,4 @@ from . import startup
 
 __version__ = "1.0.0"
 
-initialize = startup.initialize
+App = startup.App
