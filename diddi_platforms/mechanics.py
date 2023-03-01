@@ -7,7 +7,24 @@ import pyxel
 
 WALL_TILE_X = 4
 SCROLL_BORDER_X = 80
-TILES_FLOOR = []
+# NOTE: The "TILES_FLOOR" coordinates
+# are represented as (x//8, y//8),
+# where x and y are the coordinates
+# in the tilemap.
+TILES_FLOOR = [
+    (2, 2),
+    (3, 2),
+    (2, 3),
+    (3, 3),
+    (4, 0),
+    (4, 1),
+    (6, 0),
+    (6, 1),
+    (7, 0),
+    (7, 1),
+]
+
+SCROLL_X = 0
 
 
 def get_tile(tile_x, tile_y):

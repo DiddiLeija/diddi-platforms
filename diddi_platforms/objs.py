@@ -14,7 +14,7 @@ from . import mechanics
 class BaseClass:
     "The base class for all the objects."
     # Edit these variables if needed
-    x, y = 0
+    x, y = 0, 0
     aspect = (0, 0)
     size = 8
 
@@ -64,11 +64,11 @@ class Diddi(BaseClass):
         self.is_invicible = False
         self.aspects = {
             # [D]eath
-            "d": [(0, 8) for i in range(3)],
+            "d": [(0, 0) for i in range(3)],
             # [R]ight-facing
-            "r": ((8, 0), (16, 0), (24, 0)),
+            "r": ((16, 0), (24, 0), (32, 0)),
             # [L]eft-facing
-            "l": ((8, 8), (16, 8), (24, 8)),
+            "l": ((16, 8), (24, 8), (32, 8)),
         }
         self.alive = True
         self.active = False
@@ -78,7 +78,7 @@ class Diddi(BaseClass):
             return
         if not self.active:
             return
-        global scroll_x
+        # global scroll_x
         last_y = self.y
         if pyxel.btn(pyxel.KEY_LEFT):
             self.dx = -2
@@ -93,19 +93,19 @@ class Diddi(BaseClass):
         self.x, self.y, self.dx, self.dy = mechanics.push_back(
             self.x, self.y, self.dx, self.dy
         )
-        if self.x < scroll_x:
-            self.x = scroll_x
+        if self.x < mechanics.SCROLL_X:
+            self.x = mechanics.SCROLL_X
         if self.y < 0:
             self.y = 0
         self.dx = int(self.dx * 0.8)
         self.is_falling = self.y > last_y
 
-        if self.x > scroll_x + mechanics.SCROLL_BORDER_X:
+        if self.x > mechanics.SCROLL_X + mechanics.SCROLL_BORDER_X:
             # NOTE: The 'scroll_x' stuff and the enemy
             #       generation is here for a reason.
-            last_scroll_x = scroll_x
-            scroll_x = min(self.x - mechanics.SCROLL_BORDER_X, 240 * 8)
-            mechanics.spawn_enemies(last_scroll_x + 128, scroll_x + 127)
+            last_scroll_x = mechanics.SCROLL_X
+            mechanics.SCROLL_X = min(self.x - mechanics.SCROLL_BORDER_X, 240 * 8)
+            mechanics.spawn_enemies(last_scroll_x + 128, mechanics.SCROLL_X + 127)
 
     def draw(self):
         if self.is_falling:

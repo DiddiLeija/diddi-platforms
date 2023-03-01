@@ -6,4 +6,4 @@ and run Diddi Platforms by your own.
 
 import diddi_platforms
 
-diddi_platforms.App()
+diddi_platforms.App(150, 150)
