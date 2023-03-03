@@ -12,7 +12,7 @@ from . import mechanics, objs
 
 # This "default.pyxres" is the Pyxel
 # resource found in the repo.
-RESOURCE_FILE = r".\default.pyxres"
+RESOURCE_FILE = r"..\default.pyxres"
 
 # TODO: Fill these variables with our
 #       beloved character/mob/block objects!

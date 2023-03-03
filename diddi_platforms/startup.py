@@ -21,24 +21,24 @@ def load_pyxres():
 
 class App:
     "The primary class that runs everything!"
+    player = None
 
     def __init__(self, w, h, title="Default"):
         pyxel.init(w, h, title=f"Diddi Platforms: {title}")
         load_pyxres()
-        pyxel.run(self.update, self.run)
+        self.setup()
+        pyxel.run(self.update, self.draw)
+
+    def setup(self):
+        self.player = variables.PLAYER_OBJECT()
 
     def update(self):
-        variables.PLAYER_OBJECT.update()
+        self.player.update()
 
     def draw(self):
         pyxel.cls(0)
         pyxel.camera()
-        if variables.PLAYER_OBJECT.alive:
-            # WARNING: I hope the global "scroll_x"
-            # defined in "diddi_platofrms.objs"
-            # is available here. If not, an error will come.
-            #
-            # TODO: Find out a cleaner way to control this.
+        if self.player.alive:
             pyxel.bltm(0, 0, 1, mechanics.SCROLL_X, 0, 128, 128, 0)
             pyxel.camera(mechanics.SCROLL_X, 0)
-            variables.PLAYER_OBJECT.draw()
+            self.player.draw()
