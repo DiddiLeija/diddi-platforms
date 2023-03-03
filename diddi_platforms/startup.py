@@ -23,7 +23,7 @@ class App:
     "The primary class that runs everything!"
     player = None
 
-    def __init__(self, w, h, title="Default"):
+    def __init__(self, w=128, h=128, title="Default"):
         pyxel.init(w, h, title=f"Diddi Platforms: {title}")
         load_pyxres()
         self.setup()
@@ -39,6 +39,6 @@ class App:
         pyxel.cls(0)
         pyxel.camera()
         if self.player.alive:
-            pyxel.bltm(0, 0, 1, mechanics.SCROLL_X, 0, 128, 128, 0)
+            pyxel.bltm(0, 0, 0, mechanics.SCROLL_X, 0, 128, 128, 0)
             pyxel.camera(mechanics.SCROLL_X, 0)
             self.player.draw()

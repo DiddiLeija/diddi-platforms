@@ -28,7 +28,7 @@ SCROLL_X = 0
 
 
 def get_tile(tile_x, tile_y):
-    return pyxel.tilemap(1).pget(tile_x, tile_y)
+    return pyxel.tilemap(0).pget(tile_x, tile_y)
 
 
 def detect_collision(x, y, dy):

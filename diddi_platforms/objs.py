@@ -29,7 +29,7 @@ class BaseClass:
             self.x,
             self.y,
             # Assuming all "objects" can be found
-            # at tilemap 1...
+            # at image bank 1...
             1,
             self.aspect[0],
             self.aspect[1],

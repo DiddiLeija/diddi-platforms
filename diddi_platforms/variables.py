@@ -12,6 +12,7 @@ from . import mechanics, objs
 
 # This "default.pyxres" is the Pyxel
 # resource found in the repo.
+# TODO: Use a better path.
 RESOURCE_FILE = r"..\default.pyxres"
 
 # TODO: Fill these variables with our
