@@ -29,8 +29,8 @@ class BaseClass:
             self.x,
             self.y,
             # Assuming all "objects" can be found
-            # at tilemap 0...
-            0,
+            # at tilemap 1...
+            1,
             self.aspect[0],
             self.aspect[1],
             0,
@@ -119,4 +119,4 @@ class Diddi(BaseClass):
         else:
             face = "l"
         img_x, img_y = self.aspects[face][situation]
-        pyxel.blt(self.x, self.y, 0, img_x, img_y, 8, 8, 0)
+        pyxel.blt(self.x, self.y, 1, img_x, img_y, 8, 8, 0)
