@@ -26,3 +26,15 @@ tools such as Pip:
 ::
 
     python -m pip install diddi_platforms
+
+Now what?
+---------
+
+Congratulations, you've just set up your Diddi
+Platforms environment. You may be wondering what's
+next, right?
+
+Here are a few ideas:
+
+* Learn about :doc:`universe`.
+* Hop into customization with our :doc:`creator/index`.
