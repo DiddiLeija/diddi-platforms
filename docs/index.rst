@@ -3,6 +3,7 @@
    :maxdepth: 2
 
    getstarted
+   credits
 
 Diddi Platforms reference
 =========================
