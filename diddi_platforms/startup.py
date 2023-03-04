@@ -31,6 +31,7 @@ class App:
 
     def setup(self):
         self.player = variables.PLAYER_OBJECT()
+        pyxel.playm(0, loop=True)
 
     def update(self):
         self.player.update()
