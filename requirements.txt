@@ -1,0 +1,2 @@
+pyxel==1.9.12
+diddi_platforms==1.0.0
