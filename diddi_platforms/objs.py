@@ -50,7 +50,7 @@ class Diddi(BaseClass):
 
     # TODO: The current code is based in the
     #       "Abandon the ship!" code, v1.0.0.
-    #       We must get rid of that soon.
+    #       We must get rid of that at some point.
 
     def __init__(self, x=0, y=0):
         self.x = x
@@ -60,11 +60,8 @@ class Diddi(BaseClass):
         self.r_facing = True
         self.is_falling = False
         self.has_shooter = False
-        # For debugging purposes only!
-        self.is_invicible = False
+        self.is_invicible = False  # For debugging purposes only!
         self.aspects = {
-            # [D]eath
-            "d": [(0, 0) for i in range(3)],
             # [R]ight-facing
             "r": ((16, 0), (24, 0), (32, 0)),
             # [L]eft-facing
@@ -112,9 +109,7 @@ class Diddi(BaseClass):
             situation = 2
         else:
             situation = random.choice([0, 1])
-        if not self.alive:
-            face = "d"
-        elif self.r_facing:
+        if self.r_facing:
             face = "r"
         else:
             face = "l"

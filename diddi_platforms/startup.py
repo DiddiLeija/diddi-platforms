@@ -39,6 +39,9 @@ class App:
         pyxel.cls(0)
         pyxel.camera()
         if self.player.alive:
+            # Background
+            pyxel.bltm(0, 0, 1, mechanics.SCROLL_X, 0, 128, 128, 0)
+            # Blocks and level-relevant stuff
             pyxel.bltm(0, 0, 0, mechanics.SCROLL_X, 0, 128, 128, 0)
             pyxel.camera(mechanics.SCROLL_X, 0)
             self.player.draw()
