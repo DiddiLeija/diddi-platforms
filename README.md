@@ -1,3 +1,5 @@
+**:warning: This project has been canceled. I've developed similar projects recently, and most ideas behind this game will be re-imagined on such projects. The repository is kept for historical reasons.**
+
 # Diddi Platforms
 
 > A Diddi game about escalating challenges in a
